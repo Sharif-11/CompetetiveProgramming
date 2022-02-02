@@ -1,0 +1,96 @@
+//Bismillahir Rahmanir Rahim
+//Shariful Islam(1804011)
+//Chittagong University of Engineering & Technology
+#include<bits/stdc++.h>
+#define pb push_back
+#define fin(i,arr,n) for(i=0;i<n;i++)cin>>arr[i]
+#define fout(i,arr,n) for(i=0;i<n;i++)cout<<arr[i]<<" "
+#define inf 9223372036854775807
+#define vi vector<ll>
+#define init ll n,m,a,i,b,j,k,t,x,y,z,tc,u,v,w
+#define f(i,n) for(i=0;i<n;i++)
+#define mem(a,x) memset(a,x,sizeof(a))
+#define sortt(v)  sort(v.begin(),v.end())
+#define sitr(itr,st) for(auto itr=st.begin();itr!=st.end();itr++)
+#define pr pair<ll,ll>
+#define pi acos(-1.00)
+#define mod 1000000007
+#define yes cout<<"YES"<<endl
+#define no cout<<"NO"<<endl
+#define tr(exp)  exp?yes:no
+#define flush fflush(stdout)
+#define el cout<<endl
+#define ell endl
+#define inp(a) scanf("%lld",&a)
+using namespace std;
+typedef long long ll;
+/* Fenwick Tree
+ll tree[200005],n;
+ll read(ll idx){ll sum=0;while(idx>0){sum+=tree[idx];idx-=(idx&-idx);}return sum;}
+void update(ll idx,ll val){while(idx<=n){tree[idx]+=val;idx+=(idx&-idx);}}
+*/
+vi vct[200005];
+int main()
+{   ios_base::sync_with_stdio(false);  cin.tie(NULL); cout.tie(NULL);
+      //freopen("read.txt","r",stdin);
+      //freopen("write.txt","w",stdout);
+      init;
+      ll dp[200005];
+      for(i=2;i<=200003;i++)
+      {
+          for(j=2;j*j<=i;j++)
+          {
+                if(i%j==0&&j*j!=i)
+                {vct[i].pb(j);vct[i].pb(i/j);}
+                else if(i%j==0)
+                    vct[i].pb(j);
+
+          }
+      }
+      for(i=2;i<=200003;i++)
+        sort(vct[i].begin(),vct[i].end(),greater<ll>());
+      cin>>tc;
+      while(tc--)
+      {   mem(dp,0);
+          map<ll,ll>mp;
+
+           x=0;
+
+          cin>>n;
+          f(i,n)
+          {
+              cin>>u;
+              if(u==1) x++;
+           else if(mp.find(u)==mp.end()) mp[u]=1;
+              else mp[u]++;
+
+          }
+          ll mx=x;
+          sitr(itr,mp)
+          {
+             u=itr->first;v=itr->second;
+             dp[u]=x+v;
+             ll sz=vct[u].size();
+             for(i=0;i<sz;i++)
+             {   k=vct[u][i];
+                 dp[u]=max(dp[u],v+dp[k]);
+             }
+
+          }
+          for(i=0;i<=200002;i++) mx=max(mx,dp[i]);
+          cout<<n-mx<<endl;
+
+        }
+
+
+
+
+
+
+
+
+}
+
+
+
+
